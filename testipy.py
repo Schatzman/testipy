@@ -186,7 +186,7 @@ class DBHelper(object):
 
     def db_version(self):
         sqlite_vtext = "\nSQLite Version: "
-        version = sqlite + "Unknown"
+        version = sqlite_vtext + "Unknown"
         try:
             self.open_con()
             self.cursor()
