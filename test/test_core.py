@@ -4,10 +4,14 @@ import unittest
 import sys
 if sys.platform == 'win32':
     sys.path.append('..\\')
-from trol import DBHelper
+elif sys.platform == 'darwin':
+    sys.path.append('../')
+else:
+    print("Hmmm.... unknown platform. What is %s?" % sys.platform)
+from testipy import DBHelper
 from util.db import *
 
-class TrolDBTests(unittest.TestCase):
+class TestipyDBTests(unittest.TestCase):
 
     def setUp(self):
         self.db_name = 'test.db'
@@ -27,7 +31,9 @@ class TrolDBTests(unittest.TestCase):
         pass
 
     def test_db_version(self):
-        pass
+        print(self.dbh.db_version())
+        import pdb; pdb.set_trace()
 
 if __name__ == '__main__':
-    unittest.main()
+    suite = unittest.TestLoader().loadTestsFromTestCase(TestipyDBTests)
+    unittest.TextTestRunner(verbosity=2).run(suite)

@@ -1,3 +1,5 @@
+
+import os
 import subprocess
 import sys
 
@@ -9,6 +11,8 @@ def delete_db(filename):
     create_db(filename)
     if sys.platform == 'win32':
         subprocess.call(['del',filename],shell=True)
+    elif sys.platform == 'darwin':
+        os.remove(filename)
+    else:
+        print("Unknown platform: %s!" % sys.platform)
 
-## TODO
-# add method to detect if db exists
