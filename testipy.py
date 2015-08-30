@@ -163,6 +163,7 @@ class AppGUI(object):
 class DBHelper(object):
     def __init__(self, db_filename):
         self.db = db_filename
+        self.con = False
 
     def open_con(self):
         if not self.con:
