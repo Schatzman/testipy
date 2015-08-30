@@ -13,7 +13,7 @@ elif sys.platform == 'darwin':
     sys.path.append('../')
 else:
     print("Hmmm.... unknown platform. What is %s?" % sys.platform)
-from DBH import DBHelper
+from DB import DBHelper
 from util.db import *
 
 
