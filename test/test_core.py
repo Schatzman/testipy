@@ -1,9 +1,12 @@
 #!/usr/bin/env python3.4
 
-
 import sys
 import re
 import sqlite3 as sql
+import traceback
+import unittest
+
+# append ../ to path based on os to import from testipy folder
 if sys.platform == 'win32':
     sys.path.append('..\\')
 elif sys.platform == 'darwin':
@@ -11,8 +14,6 @@ elif sys.platform == 'darwin':
 else:
     print("Hmmm.... unknown platform. What is %s?" % sys.platform)
 from DBH import DBHelper
-import traceback
-import unittest
 from util.db import *
 
 
