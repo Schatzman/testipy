@@ -49,7 +49,26 @@ class DBHelper(object):
         finally:
             self.close_con()
         return sqlite_vtext + version
+    
+    def call(db, commands, method):
+        result = []
+        try:
+            for command in commands:
+                self.c.execute(command)
+            if method == 'commit':
+                result = self.con.commit()
+            elif method == 'fetch':
+                result = self.c.fetchall()
+        except:
+            print("Error: %s" % e.args[0])
+            print(traceback.format_exc())
+        finally:
+            return result
 
+
+
+    # def check_for_log_table(self):
+    #     pass
 # def create_creature_table(db):
 #     commands = [
 #         'DROP TABLE IF EXISTS creatures;',

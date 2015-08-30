@@ -72,6 +72,63 @@ class TestipyDBTests(unittest.TestCase):
             print(traceback.format_exc())
             raise Exception('No sqlite3 version regex match.')
 
+
+#SELECT name FROM test.sqlite_master WHERE type='table';
+    def test_db_call_commit(self):
+        method = 'commit'
+        commands = [
+            "ATTACH 'test.db' as test",
+            'DROP TABLE IF EXISTS test.test_table',
+            # '''CREATE TABLE IF NOT EXISTS test.test_table (
+            #     id INTEGER PRIMARY KEY AUTOINCREMENT,
+            #     date text NULL,
+            #     name text NULL,
+            #     description text NULL,
+            #     pickled_obj text NULL
+            #     );'''
+            "CREATE TABLE IF NOT EXISTS test.test_table (id INTEGER PRIMARY KEY AUTOINCREMENT, date text NULL, name text NULL, description text NULL, pickled_obj text NULL)"
+        ]
+        try:
+            self.dbh.open_con()
+            self.dbh.cursor()
+            for command in commands:
+                self.dbh.c.execute(command)
+            self.dbh.con.commit()
+            # import pdb; pdb.set_trace()
+        except sql.Error as e:
+            print("Error: %s" % e.args[0])
+            print(traceback.format_exc())
+        finally:
+            import pdb; pdb.set_trace()
+            self.dbh.close_con()
+        raise Exception('FUCKING FAILED TEST')
+
+        # print(commands)
+        # try:
+        #     self.dbh.open_con()
+        #     self.dbh.cursor()
+        #     result = self.dbh.call(commands, method)
+        # except sql.Error as e:
+        #     print("Error: %s" % e.args[0])
+        #     print(traceback.format_exc())
+        # finally:
+        #     import pdb; pdb.set_trace()
+        #     self.dbh.close_con()
+
+#     commands = [
+#         'DROP TABLE IF EXISTS creatures;',
+#         '''CREATE TABLE IF NOT EXISTS creatures (
+#             ID INTEGER PRIMARY KEY AUTOINCREMENT,
+#             date text,
+#             name text,
+#             description text,
+#             stats text,
+#             type text,
+#             pickled_obj text
+#             );'''
+#     ]
+#     return db_commit(db, commands)
+
 # recall the ../ appended to path during initial imports...
 from GUI import AppGUI
 from GUI import Window
