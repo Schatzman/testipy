@@ -15,4 +15,3 @@ def delete_db(filename):
         os.remove(filename)
     else:
         print("Unknown platform: %s!" % sys.platform)
-
