@@ -2,7 +2,7 @@
 import tkinter
 import traceback
 from util.core import read_yaml
-## GUI
+
 class Window(object):
     def __init__(self):
         self.WIN = tkinter.Tk()
@@ -18,13 +18,6 @@ class Window(object):
     def window_show(self):
         self.WIN.deiconify()
 
-    # this is to control conf options
-    # DEFAULTS:
-    # prtcl_name 'WM_DELETE_WINDOW'
-    # func window_closed
-    # title "Someone's titley string"
-    # x 500
-    # y 200
     def configure(self, prtcl_name, resize, func, title, x, y):
         self.WIN.protocol(prtcl_name, func)
         self.WIN.wm_title(title)
@@ -62,7 +55,6 @@ class Dialog(object):
     def ok(self):
         self.main.deiconify()
         self.top.destroy()
-
 
 ## MAIN 
 
