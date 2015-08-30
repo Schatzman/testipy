@@ -167,7 +167,7 @@ class DBHelper(object):
     def open_con(self):
         if not self.con:
             self.con = sql.connect(self.db)
-            return self.con
+            return self.con 
         else:
             print("Connection already opened.")
 
