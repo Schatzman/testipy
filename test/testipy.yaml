@@ -1,0 +1,5 @@
+height: 200
+width: 400
+resizeable: True
+protocol: "WM_DELETE_WINDOW"
+title: "Dan's Toolbelt"

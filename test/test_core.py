@@ -10,12 +10,16 @@ elif sys.platform == 'darwin':
     sys.path.append('../')
 else:
     print("Hmmm.... unknown platform. What is %s?" % sys.platform)
-from testipy import DBHelper
+from DBH import DBHelper
 import traceback
 import unittest
 from util.db import *
 
+
 class TestipyDBTests(unittest.TestCase):
+    """
+    Tests relating to database functionality.
+    """
 
     def setUp(self):
         self.db_name = 'test.db'
@@ -67,6 +71,56 @@ class TestipyDBTests(unittest.TestCase):
             print(traceback.format_exc())
             raise Exception('No sqlite3 version regex match.')
 
+# recall the ../ appended to path during initial imports...
+from GUI import AppGUI
+from GUI import Window
+
+class TestipyGUITests(unittest.TestCase):
+    """
+    Tests relating to graphical user interface functionality.
+    """
+
+    def setUp(self):
+        self.main = Window()
+        self.main.auto_configure()
+        self.gui = AppGUI(self.main, True)
+
+    def tearDown(self):
+        try:
+            self.main.WIN.destroy()
+        except:
+            print(traceback.format_exc())
+
+    def test_WIN(self):
+        if '<tkinter.Tk object at' in repr(self.main.WIN):
+            pass
+        else:
+            raise Exception(
+                'Something went wrong, is this a tkinter.Tk object?: ' +
+                repr(self.main.WIN)
+                )
+
+    def test_GUI(self):
+        if '<GUI.AppGUI object at' in repr(self.gui):
+            pass
+        else:
+            raise Exception(
+                'Something went wrong, is this a GUI.AppGUI object?: ' +
+                repr(self.main.WIN)
+                )
+
+    def test_main(self):
+        if '<GUI.Window object at' in repr(self.main):
+            pass
+        else:
+            raise Exception(
+                'Something went wrong, is this a GUI.Window object?: ' +
+                repr(self.main.WIN)
+                )
+
+
 if __name__ == '__main__':
-    suite = unittest.TestLoader().loadTestsFromTestCase(TestipyDBTests)
-    unittest.TextTestRunner(verbosity=2).run(suite)
+    testcases = [TestipyDBTests, TestipyGUITests]
+    for testcase in testcases:
+        suite = unittest.TestLoader().loadTestsFromTestCase(testcase)
+        unittest.TextTestRunner(verbosity=2).run(suite)
