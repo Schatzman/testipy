@@ -25,8 +25,10 @@ class TestipyDBTests(unittest.TestCase):
         self.dbh.close_con()
         delete_db(self.db_name)
 
-    # def test_open_con(self):
-    #     pass
+    def test_open_con(self):
+        self.dbh.open_con()
+        if not self.dbh.con:
+            raise Exception("Test failed, no open connection.")
 
     # def test_close_con(self):
     #     pass
@@ -35,13 +37,10 @@ class TestipyDBTests(unittest.TestCase):
     #     pass
 
     def test_db_version(self):
-        try:
-            self.dbh.close_con()
-        except:
-            pass
-        match = re.search('SQLite Version: \d.\d.\d.\d', self.dbh.db_version())
+        version = self.dbh.db_version()
+        match = re.search('SQLite Version: \d.\d.\d.\d', version)
         if match:
-            print(self.dbh.db_version())
+            print(version)
         else:
             print(traceback.format_exc())
             raise Exception('No sqlite3 version regex match.')

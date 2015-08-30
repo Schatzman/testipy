@@ -167,20 +167,30 @@ class DBHelper(object):
 
     def open_con(self):
         if not self.con:
-            self.con = sql.connect(self.db)
-            return self.con 
+            try:
+                self.con = sql.connect(self.db)
+                return self.con 
+            except sql.Error as e:
+                print("Error: %s" % e.args[0])
         else:
             print("Connection already opened.")
 
     def close_con(self):
         if self.con:
-            self.con.close()
+            try:
+                self.con.close()
+            except sql.Error as e:
+                print("Error: %s" % e.args[0])
         else:
             print("No open connection to close.")
 
     def cursor(self):
         if self.con:
-            self.c = self.con.cursor()
+            self.c = False
+            try:
+                self.c = self.con.cursor()
+            except sql.Error as e:
+                print("Error: %s" % e.args[0])
             return self.c
         else:
             print("No open connection for cursor.")
