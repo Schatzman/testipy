@@ -71,8 +71,7 @@ class TestipyDBTests(unittest.TestCase):
             print(traceback.format_exc())
             raise Exception('No sqlite3 version regex match.')
 
-    def test_db_call_commit(self):
-        method = 'commit'
+    def test_db_call_commit(self): # this is silly.
         commands = [
             "ATTACH 'test.db' as test",
             'DROP TABLE IF EXISTS test.test_table',
@@ -131,16 +130,23 @@ class TestipyGUITests(unittest.TestCase):
 
     def test_window_closed(self):
         self.main.window_closed()
+        err = ''
         try:
             self.main.WIN.winfo_exists()
         except Exception as e:
             err = e.__str__()
             expected = (
-                'can\'t invoke "winfo" command: ' +
                 'application has been destroyed'
                 )
-            if expected not in err:
-                raise Exception(pprint([err,traceback.format_exc()]))
+            err_lst = []
+            self.assertTrue(expected in err)
+
+    def test_window_show(self):
+        self.main.WIN.withdraw()
+        self.assertEqual(self.main.WIN.state(), 'withdrawn')
+        self.main.window_show()
+        self.assertEqual(self.main.WIN.state(), 'normal')
+            
 
     def test_GUI(self):
         item_on_test = self.gui
