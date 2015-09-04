@@ -1,8 +1,7 @@
 #!/usr/bin/env python3.4
-
-import sys
 import re
 import sqlite3 as sql
+import sys
 import traceback
 import unittest
 
@@ -99,8 +98,10 @@ class TestipyDBTests(unittest.TestCase):
             self.dbh.close_con()
 
 # recall the ../ appended to path during initial imports...
+
 from GUI import AppGUI
 from GUI import Window
+from pprint import pprint
 
 class TestipyGUITests(unittest.TestCase):
     """
@@ -116,33 +117,49 @@ class TestipyGUITests(unittest.TestCase):
         try:
             self.main.WIN.destroy()
         except:
-            print(traceback.format_exc())
+            pass # sometimes it has already been destroyed.
 
     def test_WIN(self):
-        if '<tkinter.Tk object at' in repr(self.main.WIN):
+        item_on_test = self.main.WIN
+        if '<tkinter.Tk object at' in repr(item_on_test):
             pass
         else:
             raise Exception(
                 'Something went wrong, is this a tkinter.Tk object?: ' +
-                repr(self.main.WIN)
+                repr(item_on_test)
                 )
 
+    def test_window_closed(self):
+        self.main.window_closed()
+        try:
+            self.main.WIN.winfo_exists()
+        except Exception as e:
+            err = e.__str__()
+            expected = (
+                'can\'t invoke "winfo" command: ' +
+                'application has been destroyed'
+                )
+            if expected not in err:
+                raise Exception(pprint([err,traceback.format_exc()]))
+
     def test_GUI(self):
-        if '<GUI.AppGUI object at' in repr(self.gui):
+        item_on_test = self.gui
+        if '<GUI.AppGUI object at' in repr(item_on_test):
             pass
         else:
             raise Exception(
                 'Something went wrong, is this a GUI.AppGUI object?: ' +
-                repr(self.main.WIN)
+                repr(item_on_test)
                 )
 
     def test_main(self):
-        if '<GUI.Window object at' in repr(self.main):
+        item_on_test = self.main
+        if '<GUI.Window object at' in repr(item_on_test):
             pass
         else:
             raise Exception(
                 'Something went wrong, is this a GUI.Window object?: ' +
-                repr(self.main.WIN)
+                repr(item_on_test)
                 )
 
 

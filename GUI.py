@@ -1,4 +1,3 @@
-
 import tkinter
 import traceback
 from util.core import read_yaml
