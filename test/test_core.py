@@ -66,7 +66,7 @@ class TestipyDBTests(unittest.TestCase):
         version = self.dbh.db_version()
         match = re.search('SQLite Version: \d.\d.\d.\d', version)
         if match:
-            print(version)
+            pass # test passes
         else:
             print(traceback.format_exc())
             raise Exception('No sqlite3 version regex match.')
@@ -146,7 +146,20 @@ class TestipyGUITests(unittest.TestCase):
         self.assertEqual(self.main.WIN.state(), 'withdrawn')
         self.main.window_show()
         self.assertEqual(self.main.WIN.state(), 'normal')
-            
+
+    def test_configure(self):
+        # print(self.main.WIN.winfo_width())
+        # print(self.main.WIN.winfo_height())
+        # check resizable
+        # check protocol
+        # check wm_title
+        # configure
+        # check that new values are set.
+        fixme
+
+    def test_autoconfigure(self):
+        # test pulling conf values from yaml.
+        fixme
 
     def test_GUI(self):
         item_on_test = self.gui

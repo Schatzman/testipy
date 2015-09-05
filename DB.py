@@ -51,6 +51,7 @@ class DBHelper(object):
         return sqlite_vtext + version
 
 
+
 # need some helper methods that work
 # finish other tests first.
     
