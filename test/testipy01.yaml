@@ -1,0 +1,5 @@
+height: 900
+width: 600
+resizeable: False
+protocol: "WM_DELETE_WINDOW"
+title: "TESTY McTesterWindow's different test window with a MUCH longer title."
