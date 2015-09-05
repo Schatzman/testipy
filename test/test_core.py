@@ -15,6 +15,8 @@ else:
 from DB import DBHelper
 from util.db import *
 
+def callback():
+    return True
 
 class TestipyDBTests(unittest.TestCase):
     """
@@ -109,7 +111,7 @@ class TestipyGUITests(unittest.TestCase):
 
     def setUp(self):
         self.main = Window()
-        self.main.auto_configure()
+        # self.main.auto_configure()
         self.gui = AppGUI(self.main, True)
 
     def tearDown(self):
@@ -148,18 +150,47 @@ class TestipyGUITests(unittest.TestCase):
         self.assertEqual(self.main.WIN.state(), 'normal')
 
     def test_configure(self):
-        # print(self.main.WIN.winfo_width())
-        # print(self.main.WIN.winfo_height())
+        print("PRE CONFIGURE")
+        print(self.main.WIN.winfo_width())
+        print(self.main.WIN.winfo_height())
+        print(self.main.WIN.title())
+        print(self.main.WIN.wm_protocol()) # 'WM_DELETE_WINDOW'
+        print(self.main.WIN.wm_resizable()) # (1,1) = resize x True, resize y True
+
+        import time
+        time.sleep(1)
+        prtcl_name = "WM_DELETE_WINDOW"
+        resize = True
+        func = callback
+        title = "TESTY McTesterWindow"
+        x = 1000
+        y = 1000
+        self.main.configure(
+            prtcl_name,
+            resize,
+            func,
+            title,
+            x, y
+            )
+        time.sleep(1)
+        print("POST CONFIGURE")
+        print(self.main.WIN.winfo_width())
+        print(self.main.WIN.winfo_height())
+        print(self.main.WIN.title())
+        print(self.main.WIN.wm_protocol()) # 'WM_DELETE_WINDOW'
+        print(self.main.WIN.wm_resizable())
         # check resizable
         # check protocol
         # check wm_title
         # configure
         # check that new values are set.
-        fixme
+        # fixme
+        import pdb; pdb.set_trace()
 
     def test_autoconfigure(self):
         # test pulling conf values from yaml.
-        fixme
+        # fixme
+        pass
 
     def test_GUI(self):
         item_on_test = self.gui

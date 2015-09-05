@@ -20,7 +20,9 @@ class Window(object):
     def configure(self, prtcl_name, resize, func, title, x, y):
         self.WIN.protocol(prtcl_name, func)
         self.WIN.wm_title(title)
-        self.WIN.resizable(x,y)
+        self.WIN.resizable(width=resize, height=resize)
+        geometry_string = str(x) + "x" + str(y) + "+182+182"
+        self.WIN.geometry(geometry_string)
 
     def auto_configure(self):
         self.yaml_dump = read_yaml(self.config_file)
