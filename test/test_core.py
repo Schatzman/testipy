@@ -156,9 +156,6 @@ class TestipyGUITests(unittest.TestCase):
         print(self.main.WIN.title())
         print(self.main.WIN.wm_protocol()) # 'WM_DELETE_WINDOW'
         print(self.main.WIN.wm_resizable()) # (1,1) = resize x True, resize y True
-
-        import time
-        time.sleep(1)
         prtcl_name = "WM_DELETE_WINDOW"
         resize = True
         func = callback
@@ -172,7 +169,6 @@ class TestipyGUITests(unittest.TestCase):
             title,
             x, y
             )
-        time.sleep(1)
         print("POST CONFIGURE")
         print(self.main.WIN.winfo_width())
         print(self.main.WIN.winfo_height())
@@ -184,13 +180,13 @@ class TestipyGUITests(unittest.TestCase):
         # check wm_title
         # configure
         # check that new values are set.
-        # fixme
-        import pdb; pdb.set_trace()
+        # import time; time.sleep(5)
+        # self.assertEqual(self.main.WIN.winfo_width(), 1000)
+        fixme
 
     def test_autoconfigure(self):
-        # test pulling conf values from yaml.
-        # fixme
-        pass
+        # test pulling conf values from yaml.\
+        fixme
 
     def test_GUI(self):
         item_on_test = self.gui
@@ -212,9 +208,17 @@ class TestipyGUITests(unittest.TestCase):
                 repr(item_on_test)
                 )
 
+class TestActorFuncs(unittest.TestCase):
+    def setUp(self):
+        pass
+    def tearDown(self):
+        pass
+    def test_foo(self):
+        raise Exception('bar')
+
 
 if __name__ == '__main__':
-    testsuites = [TestipyDBTests, TestipyGUITests]
+    testsuites = [TestipyDBTests, TestipyGUITests, TestActorFuncs]
     for testcases in testsuites:
         suite = unittest.TestLoader().loadTestsFromTestCase(testcases)
         unittest.TextTestRunner(verbosity=2).run(suite)
