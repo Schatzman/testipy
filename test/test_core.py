@@ -156,6 +156,8 @@ class TestipyGUITests(unittest.TestCase):
         print(self.main.WIN.title())
         print(self.main.WIN.wm_protocol()) # 'WM_DELETE_WINDOW'
         print(self.main.WIN.wm_resizable()) # (1,1) = resize x True, resize y True
+        print(self.main.WIN.wm_geometry())
+        print(self.main.WIN.wm_state())
         prtcl_name = "WM_DELETE_WINDOW"
         resize = True
         func = callback
@@ -175,6 +177,8 @@ class TestipyGUITests(unittest.TestCase):
         print(self.main.WIN.title())
         print(self.main.WIN.wm_protocol()) # 'WM_DELETE_WINDOW'
         print(self.main.WIN.wm_resizable())
+        print(self.main.WIN.wm_geometry())
+        print(self.main.WIN.wm_state())
         # check resizable
         # check protocol
         # check wm_title
@@ -182,7 +186,8 @@ class TestipyGUITests(unittest.TestCase):
         # check that new values are set.
         # import time; time.sleep(5)
         # self.assertEqual(self.main.WIN.winfo_width(), 1000)
-        fixme
+        import pdb; pdb.set_trace()
+
 
     def test_autoconfigure(self):
         # test pulling conf values from yaml.\
