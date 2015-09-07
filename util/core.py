@@ -8,12 +8,18 @@ try:
 except ImportError:
     from yaml import Loader, Dumper
 
-def configure_logging():
-    logging.basicConfig(
-        level=logging.DEBUG,
-        format='[%(levelname)s] %(asctime)s (%(threadName)-10s) %(message)s',
-        )
-    return logging
+def configure_logging(filename=None):
+    if filename != None:
+        logging.basicConfig(
+            filename=filename,
+            level=logging.DEBUG,
+            format='[%(levelname)s] %(asctime)s (%(threadName)-10s) %(message)s',
+            )
+    else:
+        logging.basicConfig(
+            level=logging.DEBUG,
+            format='[%(levelname)s] %(asctime)s (%(threadName)-10s) %(message)s',
+            )
 
 def read_yaml(filename_yaml):
     stream = open(filename_yaml, 'r')
